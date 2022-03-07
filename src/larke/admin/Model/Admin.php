@@ -139,7 +139,7 @@ class Admin extends Base
             ->makeVisible(['password', 'password_salt'])
             ->toArray();
         
-        if (! $this->checkPassword([
+        if (! static::checkPassword([
             'password' => $adminInfo['password'],
             'password_salt' => $adminInfo['password_salt'],
         ], $credentials['password'])) {
@@ -162,7 +162,7 @@ class Admin extends Base
      */
     public static function attempt(array $credentials = [])
     {
-        if ($this->login($credentials) === false) {
+        if (static::login($credentials) === false) {
             return false;
         }
         
