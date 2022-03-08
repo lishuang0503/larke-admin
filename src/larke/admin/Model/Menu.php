@@ -307,7 +307,7 @@ class Menu
      *
      * @param string $id 菜单id
      *
-     * @return array
+     * @return false
      */
     public function getChildren($id)
     {
@@ -351,7 +351,7 @@ class Menu
         
         $slugs = app('larke-admin.auth-admin')->getRuleSlugs();
         
-        $list = collect($menus)
+        return  collect($menus)
             ->filter(function($data) use($slugs) {
                 if (! isset($data['slug'])) {
                     return false;
@@ -364,8 +364,6 @@ class Menu
                 return false;
             })
             ->values();
-        
-        return $list;
     }
     
     /**
