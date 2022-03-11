@@ -4,6 +4,7 @@ declare (strict_types = 1);
 
 namespace Larke\Admin\Listener;
 
+use Illuminate\Support\Facades\Cache;
 use Larke\Admin\Event;
 use Larke\Admin\Model\Admin as AdminModel;
 
@@ -24,5 +25,8 @@ class PassportLogoutAfter
             'refresh_time' => time(), 
             'refresh_ip' => request()->ip(),
         ]);
+
+      //晴空选中游戏大区缓存
+      Cache::forget($adminid.env('CACHE_USER_KEY'));
     }
 }
