@@ -138,24 +138,24 @@ class Passport extends Base
     $validator = Validator::make($data, [
       'name' => 'required',
       'password' => 'required',
-       'captcha' => 'required|size:4',
+      // 'captcha' => 'required|size:4',
     ], [
       'name.required' => __('账号不能为空'),
       'password.required' => __('密码不能为空'),
-      'captcha.required' => __('验证码不能为空'),
-      'captcha.size' => __('验证码位数错误'),
+      /*'captcha.required' => __('验证码不能为空'),
+      'captcha.size' => __('验证码位数错误'),*/
     ]);
 
     if ($validator->fails()) {
       return $this->error($validator->errors()->first(), \ResponseCode::LOGIN_ERROR);
     }
 
-    $captchaKey = config('larkeadmin.passport.header_captcha_key');
+    /*$captchaKey = config('larkeadmin.passport.header_captcha_key');
     $captchaUniq = $request->header($captchaKey);
     $captcha = $request->input('captcha');
     if (! app('larke-admin.captcha')->check($captcha, $captchaUniq)) {
         return $this->error(__('验证码错误'), \ResponseCode::LOGIN_ERROR);
-    }
+    }*/
 
     // 校验密码
     $name = $request->input('name');
@@ -173,7 +173,7 @@ class Passport extends Base
 
     $password = $request->input('password');
 
-    // 取出 RSA 缓存ID
+    /*// 取出 RSA 缓存ID
     $prikeyCacheKey = substr($password, 0, 16);
 
     // 原始密码
@@ -183,9 +183,9 @@ class Passport extends Base
     $password = base64_decode($password);
     if (empty($password)) {
         return $this->error(__('密码错误'), \ResponseCode::LOGIN_ERROR);
-    }
+    }*/
 
-    try {
+    /*  try {
           // 私钥
           $prikey = Cache::get($prikeyCacheKey);
 
@@ -199,7 +199,10 @@ class Passport extends Base
           Log::error('larke-admin-login: ' . $e->getMessage());
 
           return $this->error(__('密码错误'), \ResponseCode::LOGIN_ERROR);
-      }
+      }*/
+
+
+
 
     $encryptPassword = AdminModel::checkPassword($adminInfo, $password);
 
@@ -248,7 +251,7 @@ class Passport extends Base
     }
 
     // 清空 RSA 缓存
-     Cache::forget($prikeyCacheKey);
+    // Cache::forget($prikeyCacheKey);
 
     // 过期时间
     $expiresIn = app('larke-admin.auth-token')->getAccessTokenExpiresIn();
