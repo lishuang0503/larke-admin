@@ -67,11 +67,14 @@ class Admin
             ->select([
                 'id', 
                 'parentid', 
-                'title', 
+                'parentid as pid',
+                'title',
                 'url',
                 'method',
                 'slug',
                 'description',
+                'status',
+                'listorder as sort',
             ])
             ->whereHas('ruleAccess', function($query) use($groupids) {
                 $query->whereIn('group_id', $groupids);
@@ -104,13 +107,16 @@ class Admin
     public static function getAllRules()
     {
         $rules = AuthRuleModel::select([
-            'id', 
-            'parentid', 
-            'title', 
+            'id',
+            'parentid',
+            'parentid as pid',
+            'title',
             'url',
             'method',
             'slug',
             'description',
+            'status',
+            'listorder as sort',
         ])->where('status', 1)
             ->orderBy('listorder', 'ASC')
             ->orderBy('create_time', 'ASC')

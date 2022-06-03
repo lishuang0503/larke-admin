@@ -344,26 +344,28 @@ class Menu
      */
     public function getAuthList()
     {
-        $menus = $this->getList();
+        /*$menus = $this->getList();
         if (empty($menus)) {
             return [];
-        }
-        
-        $slugs = app('larke-admin.auth-admin')->getRuleSlugs();
-        
-        return  collect($menus)
+        }*/
+
+        $slugs =  app('larke-admin.auth-admin')->getRules();
+
+        return $slugs;
+
+       /* return  collect($menus)
             ->filter(function($data) use($slugs) {
                 if (! isset($data['slug'])) {
                     return false;
                 }
-                
+
                 if (in_array($data['slug'], $slugs)) {
                     return true;
                 }
-                
+
                 return false;
             })
-            ->values();
+            ->values();*/
     }
     
     /**
