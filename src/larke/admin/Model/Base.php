@@ -44,11 +44,12 @@ class Base extends Model
      * @var array
      */
     protected $visible = [];
-    
-    public function scopeWithCertain($query, $relation, array $columns)
+
+    public function scopeWithCertain($query, $relation, array $columns, $primaryKey = 'id')
     {
-        return $query->with([$relation => function ($query) use ($columns) {
-            $query->select(array_merge(['id'], $columns));
+        return $query->with([$relation => function ($query) use ($columns, $primaryKey) {
+            $select = $columns != ['*'] ? array_merge([$primaryKey], $columns) : ['*'];
+            $query->select($select);
         }]);
     }
 
