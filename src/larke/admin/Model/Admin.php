@@ -22,6 +22,8 @@ class Admin extends Base
     
     public $incrementing = false;
     public $timestamps = false;
+
+    public $connection = 'mysql';
     
     /**
      * 黑名单
