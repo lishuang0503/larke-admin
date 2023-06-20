@@ -11,7 +11,7 @@ Route::group([
   'as'         => config('larkeadmin.route.as'),
 ], function ($router) {
   $router->group([
-    'middleware' => config('larkeadmin.route.admin_middleware'),
+    //'middleware' => config('larkeadmin.route.admin_middleware'),
   ], function ($router) {
     // 权限菜单
     $router->get('/auth/rule', 'AuthRule@index')->name('auth-rule.index');
